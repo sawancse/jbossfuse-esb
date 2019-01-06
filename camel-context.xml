@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bp:blueprint
+	xmlns="http://camel.apache.org/schema/blueprint"
+	xmlns:bp="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:isb="http://www.vedaxml.com/services/identity/subscriber/businessunit/v1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0      http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd   http://camel.apache.org/schema/blueprint      http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+
+
+<errorHandler id="eh" redeliveryPolicyRef="policy"
+			xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" />
+
+		<redeliveryPolicyProfile id="policy"
+			maximumRedeliveries="3" redeliveryDelay="25"
+			retryAttemptedLogLevel="WARN" />
+			
+	<camelContext allowUseOriginalMessage="false"  depends-on="jms" id="rama-enquiry" streamCache="true" threadNamePattern="#camelId#-thread-#counter#"
+		trace="{{camel.context.trace}}" useBreadcrumb="true" useMDCLogging="true">
+
+		<routeContextRef ref="log-route-context-id" />
+		<endpoint id="rama-jms-gateway-v1"
+			uri="jms:queue:Rama.Serv.Req.1.0.Q?exchangePattern=InOut&amp;deliveryPersistent=false&amp;explicitQosEnabled=true&amp;requestTimeout={{rama.response.timeout}}&amp;replyTo=Rama.Serv.Res.1.0.Q.Node1&amp;replyToType=Exclusive" />
+
+
+
+
+	</camelContext>
+</bp:blueprint>
