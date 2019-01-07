@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint:blueprint xmlns="http://camel.apache.org/schema/blueprint"
+    xmlns:blueprint="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+    xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="   http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd   http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd   http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd   http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.2.0 http://aries.apache.org/schemas/blueprint-ext/blueprint-ext-1.2.xsd">
+    <cm:property-placeholder id="log.demo3" persistent-id="log.demo3" update-strategy="reload"/>
+    <camelContext allowUseOriginalMessage="false" depends-on="jms"
+        errorHandlerRef="myDeadLetterErrorHandler" id="rama-enquiry"
+        streamCache="true"
+        threadNamePattern="#camelId#-thread-#counter#"
+        trace="{{camel.context.trace}}" useBreadcrumb="true" useMDCLogging="true">
+        <routeContextRef ref="log-route-context-id"/>
+    
+    	<endpoint id="hello-ws-impl-id" uri="cxf:bean:hello-ws-impl"/>
+        <endpoint id="rama-jms-gateway-v1" uri="jms:queue:Rama.Serv.Req.1.0.Q?exchangePattern=InOut&amp;deliveryPersistent=false&amp;explicitQosEnabled=true&amp;requestTimeout={{rama.response.timeout}}&amp;replyTo=Rama.Serv.Res.1.0.Q.Node1&amp;replyToType=Exclusive"/>
+    
+    </camelContext>
+</blueprint:blueprint>
