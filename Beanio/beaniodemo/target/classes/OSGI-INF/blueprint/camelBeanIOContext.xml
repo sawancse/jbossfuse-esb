@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <bean
+        class="com.example.integration.demo.processor.PropertyReadProcessor" id="propertyReadProcessor"/>
+    <camelContext id="camelbeanIoContext" xmlns="http://camel.apache.org/schema/blueprint">
+        <dataFormats>
+            <beanio id="employeeMapping"
+                mapping="classpath:RecordMapping.xml" streamName="employeeFile"/>
+        </dataFormats>
+        <route id="beanIoRoute">
+            <from id="_from1" uri="file:c:\beanioInbox"/>
+            <unmarshal id="_unmarshal1" ref="employeeMapping"/>
+            <log id="_log1" message="unmarshal body ::${body}"/>
+            <setProperty id="_setProperty1" propertyName="unmarshalBody">
+                <simple>${body}</simple>
+            </setProperty>
+            <log id="_log2" message="unmarshalBody value:: ${exchangeProperty.unmarshalBody}"/>
+            <process id="_process1" ref="propertyReadProcessor"/>
+        </route>
+    </camelContext>
+</blueprint>

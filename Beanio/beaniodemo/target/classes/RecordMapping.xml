@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beanio xmlns="http://www.beanio.org/2012/03" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03/mapping.xsd">
+
+  <stream name="employeeFile" format="delimited">
+  	<parser>
+  		<property name="delimiter" value=";"/>
+  	</parser>
+    <record name="header" order="1" minOccurs="1" maxOccurs="1" class="com.example.integration.demo.model.Header">
+      <field name="recordType" rid="true" literal="Header" />
+      <field name="fileDate" format="MMddyyyy" />
+    </record>
+    <group name="departmentGroup" order="2" minOccurs="0" maxOccurs="unbounded" class="">
+      <record name="deptHeader" order="1" minOccurs="1" maxOccurs="1" setter="" getter="">
+        <field name="recordType" rid="true" literal="DeptHeader" />
+        <field name="departmentName" />
+      </record>
+      <record name="employee" order="2" minOccurs="0" maxOccurs="unbounded" collection="List" class="com.example.integration.demo.model.Employee">
+        <field name="recordType" rid="true" literal="Detail" />
+        <field name="firstName" />
+        <field name="lastName" />
+        <field name="title" />
+        <field name="salary" />
+        <field name="hireDate" format="MMddyyyy" />
+      </record>
+      <record name="deptTrailer" order="3" minOccurs="1" maxOccurs="1" class="com.example.integration.demo.model.DeptTrailer">
+        <field name="recordType" rid="true" literal="DeptTrailer" />
+        <field name="employeeCount" />
+      </record>  
+    </group>
+    <record name="trailer" order="3" minOccurs="1" maxOccurs="1" class="com.example.integration.demo.model.Trailer">
+      <field name="recordType" rid="true" literal="Trailer" />
+      <field name="departmentCount" />
+    </record>  
+  </stream>  
+</beanio>

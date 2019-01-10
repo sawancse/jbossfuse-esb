@@ -1,0 +1,9 @@
+Header;01012011
+DeptHeader;Development
+Detail;Joe;Smith;Developer;75000;10012009
+Detail;Jane;Doe;Architect;80000;01152008
+DeptTrailer;2
+DeptHeader;Product Management
+Detail;Jon;Anderson;Manager;85000;03182007
+DeptTrailer;1
+Trailer;2

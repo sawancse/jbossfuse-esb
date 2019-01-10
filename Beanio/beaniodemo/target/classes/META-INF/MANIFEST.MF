@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1518266536946
+Build-Jdk: 1.8.0_151
+Built-By: sawankum
+Bundle-Blueprint: OSGI-INF/blueprint/camelBeanIOContext.xml
+Bundle-Description: First beaniodemo Project
+Bundle-ManifestVersion: 2
+Bundle-Name: beaniodemo Project
+Bundle-SymbolicName: beaniodemo
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.example.integration.demo.model;version="1.0.0";uses:
+ ="org.apache.camel.dataformat.bindy.annotation",com.example.integration
+ .demo.processor;version="1.0.0";uses:="com.example.integration.demo.mod
+ el,org.apache.camel",com.example.integration.demo.service;version="1.0.
+ 0";uses:="com.example.integration.demo.model,javax.ws.rs"
+Import-Package: com.example.integration.demo.model;version="[1.0,2)",jav
+ ax.ws.rs;version="[2.0,3)",org.apache.camel;version="[2.17,3)",org.apac
+ he.camel.dataformat.bindy.annotation;version="[2.17,3)",org.apache.cxf.
+ message;version="[3.1,4)",org.osgi.service.blueprint;version="[1.0.0,2.
+ 0.0)",org.slf4j;version="[1.7,2)",org.jasypt.encryption.pbe
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.2.0.201605172007
